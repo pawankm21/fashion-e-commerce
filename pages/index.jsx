@@ -175,7 +175,7 @@ export default function Home() {
           <div className="w-full flex  h-full relative">
             <div className="w-[40rem] h-[40rem] absolute bg-themeGreen rounded-full lg:bottom-16 lg:-right-28 opacity-50"></div>
             <img
-              src={selectedImage}
+              src={selectedImage.src}
               alt="model1"
               className="relative z-20 lg:hidden"
             />
