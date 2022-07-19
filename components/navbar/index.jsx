@@ -32,7 +32,7 @@ export default function Navbar() {
     <div className="w-full border-b border-themeGray border-opacity-40 flex place-items-center  ">
       <div className="grid grid-cols-6 lg:grid-cols-8 border-r lg:w-auto w-100">
         <div className="col-span-2 divide-x divide-themeGray divide-opacity-40 flex border-r border-themeGray border-opacity-40">
-          <div className="lg:p-7 p-5">
+          <div className="lg:py-7 p-5">
             <MenuAlt2Icon className="w-8 h-6" />
           </div>
 
@@ -84,7 +84,7 @@ export default function Navbar() {
           placeholder="Search"
         />
       </div>
-      <div className="h-20 lg:w-52 lg:mx-auto lg:block hidden border-x">
+      <div className="h-20 lg:w-60 lg:mx-auto lg:block hidden border-x">
         <div className="w-full h-full flex place-items-center gap-8 justify-center">
           <CollectionIcon className="w-6 h-6" />
           <UserIcon className="w-6 h-6" />
