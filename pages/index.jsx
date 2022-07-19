@@ -30,15 +30,15 @@ export default function Home() {
   const [selectedImage, setSelectedImage] = useState(images[0].src);
  
   return (
-    <div className=" h-full">
+    <div className=" h-full overflow-hidden">
       <Head>
         <title>Fashion Ecommerce</title>
         <meta name="description" content="A fashion e-commerce website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className="flex w-full h-full ">
-        <div className=" h-full pl-20 pt-24 w-1/2">
+      <div className="lg:flex w-full h-full ">
+        <div className=" h-full pl-20 pt-24 lg:w-1/2 w-full">
           <div className="flex">
             <div>
               <h1
@@ -98,7 +98,7 @@ export default function Home() {
             </div>
             <div className="flex mt-12 place-items-center gap-4">
               <div className="flex gap-3.5 place-items-center">
-                {images.map((image,index) => (
+                {images.map((image, index) => (
                   <ImageCard
                     key={image.src}
                     image={image.src}
@@ -116,10 +116,11 @@ export default function Home() {
           </motion.div>
           <div className="my-20" />
         </div>
-        <div className="w-1/2 overflow-hidden">
+        <div className="lg:w-1/2 w-full overflow-hidden">
           <div className="w-full flex  h-full relative">
-            <div className="w-[40rem] h-[40rem] absolute bg-themeGreen rounded-full bottom-16 -right-28 opacity-50"></div>
-            <div className="w-full h-full relative">
+            <div className="w-[40rem] h-[40rem] absolute bg-themeGreen rounded-full lg:bottom-16 lg:-right-28 opacity-50"></div>
+            <img src={selectedImage} alt="model1" className="relative z-20 lg:hidden" />
+            <div className="w-full h-full relative lg:block hidden">
               <Image
                 src={selectedImage}
                 alt="model1"
