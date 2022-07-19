@@ -5,7 +5,7 @@ import ProductCard from "../components/product-card";
 import Image from "next/image";
 import ImageCard from "../components/image-card";
 import { ChevronRightIcon } from "@heroicons/react/outline";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 export default function Home() {
   const container = {
     hidden: {
@@ -118,13 +118,16 @@ export default function Home() {
               </motion.button>
             </motion.div>
           </div>
-          <motion.div initial>
-            <h5 className="uppercase font-bold ">Select size</h5>
-            <div className="flex gap-5 my-6">
+          <motion.div variants={container} initial="hidden" animate="visible">
+            <motion.h5 layout variants={item} className="uppercase font-bold ">
+              Select size
+            </motion.h5>
+            <motion.div layout variants={item} className="flex gap-5 my-6">
               {sizes.map((size, ind) => {
                 if (ind < 3) {
                   return (
                     <motion.button
+                      layout
                       key={size}
                       onClick={() => setSelectedSize(size)}
                       className={` border-[1.5px] ${
@@ -138,10 +141,18 @@ export default function Home() {
                   );
                 }
               })}
-              <button className="font-bold uppercase">Size guide</button>
-            </div>
-            <div className="flex mt-12 place-items-center gap-4">
-              <div className="flex gap-3.5 place-items-center">
+              <motion.button variants={item} className="font-bold uppercase">
+                Size guide
+              </motion.button>
+            </motion.div>
+            <motion.div
+              variants={item}
+              className="flex mt-12 place-items-center gap-4"
+            >
+              <motion.div
+                variants={item}
+                className="flex gap-3.5 place-items-center"
+              >
                 {images.map((image, index) => (
                   <ImageCard
                     key={image.src}
@@ -152,11 +163,11 @@ export default function Home() {
                     }}
                   />
                 ))}
-              </div>
-              <button className="relative z-10">
+              </motion.div>
+              <motion.button variants={item} className="relative z-10">
                 <ChevronRightIcon className="w-8 h-8 stroke-1 " />
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           </motion.div>
           <div className="my-20" />
         </div>
@@ -168,6 +179,8 @@ export default function Home() {
               alt="model1"
               className="relative z-20 lg:hidden"
             />
+            <AnimatePresence>
+
             {selectedImage ? (
               <motion.div
                 key={selectedImage.src}
@@ -180,10 +193,17 @@ export default function Home() {
                     ease: "easeInOut",
                   },
                 }}
-                initial={{
+                  initial={{
                   opacity: 0,
-                  x: -100,
+                    x: 100,
+                    position: "absolute",
                 }}
+                  exit={{
+                    opacity: 0,
+                    x: -50,
+                    position: "absolute",
+                  }}
+                
                 className="w-full h-full relative lg:block hidden"
               >
                 <Image
@@ -195,11 +215,7 @@ export default function Home() {
                 />
               </motion.div>
             ) : null}
-            <div className=" place-self-center mb-36 relative  mx-4 text-center">
-              <div className="text-4xl">01</div>
-              <div className="my-32"></div>
-              <div className="text-xl">05</div>
-            </div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
