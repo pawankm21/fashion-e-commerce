@@ -3,9 +3,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 export default function ImageCard(props) {
   return (
-    <motion.div
+    <motion.button
       className="w-32 h-56 overflow-clip bg-gradient-to-r from-[#F0F1F2] to-[#EAEBEC] "
       layout
+      onClick={props.setImage}
     >
       <motion.div
         whileHover={{
@@ -19,6 +20,6 @@ export default function ImageCard(props) {
       >
         <Image src={props.image} alt="image" layout="fill" objectFit="cover" />
       </motion.div>
-    </motion.div>
+    </motion.button>
   );
 }

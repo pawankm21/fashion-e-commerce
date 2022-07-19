@@ -84,7 +84,7 @@ export default function Navbar() {
           placeholder="Search"
         />
       </div>
-      <div className="h-20 lg:w-60 lg:mx-auto lg:block hidden border-x">
+      <div className="h-20 lg:w-96 lg:mx-auto lg:block hidden border-x">
         <div className="w-full h-full flex place-items-center gap-8 justify-center">
           <CollectionIcon className="w-6 h-6" />
           <UserIcon className="w-6 h-6" />
