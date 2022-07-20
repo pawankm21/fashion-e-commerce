@@ -4,40 +4,13 @@ import Navbar from "../components/navbar";
 import ProductCard from "../components/product-card";
 import Image from "next/image";
 import ImageCard from "../components/image-card";
-import { ChevronRightIcon } from "@heroicons/react/outline";
+import { ChevronRightIcon, PlusIcon } from "@heroicons/react/outline";
 import { AnimatePresence, motion } from "framer-motion";
+import {container,item,button,image,heading,onClickImage} from "../animations";
 export default function Home() {
-  const container = {
-    hidden: {
-      opacity: 0,
-      y: 100,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeInOut",
-        staggerChildren: 0.1,
-        delayChildren: 0.5,
-      },
-    },
-  };
-  const item = {
-    hidden: {
-      opacity: 0,
-      y: 100,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-  };
+
   const sizes = ["S", "M", "L"];
+
   const images = [
     {
       src: "/img/model1.png",
@@ -59,6 +32,9 @@ export default function Home() {
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const [animate, setAnimate] = useState(false);
+  function handleAddClick() {
+    setAnimate(true);
+  }
 
   return (
     <div className=" h-full overflow-hidden">
@@ -68,11 +44,31 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
+      <motion.button className="w-10 h-10 bg-black text-white rounded-full p-2 z-50 absolute left-[40%] top-[65%]"
+        onClick={handleAddClick}
+        whileTap={button}
+        variants={item}
+        animate={animate ? "hidden" : "visible"}
+      >
+        <PlusIcon className=" stroke-1"/>
+      </motion.button>
+      <motion.div
+        variants={container}
+        animate={animate ? "hidden" : "visible"}
+        initial="hidden"
+        className="absolute grid-rows-2 gap-8 left-[60%] top-1/3 z-30"
+      >
+        <ProductCard title="Sandals" image="/img/sandals.png" price="45" />
+        <ProductCard title="bag" image="/img/bag.png" price="56" />
+      </motion.div>
       <div className="lg:flex w-full h-full ">
         <div className=" h-full pl-20 pt-24 lg:w-1/2 w-full">
           <div className="flex">
             <motion.div>
               <motion.h1
+                variants={heading}
+                animate={animate ? "animate" : "initial"}
+                initial="initial"
                 className="font-bold text-6xl uppercase leading-[5rem]  
                 w-full"
               >
@@ -82,8 +78,8 @@ export default function Home() {
               </motion.h1>
               <motion.div
                 variants={container}
-                initial="hidden"
-                animate="visible"
+                initial={"hidden"}
+                animate={animate ? "visible" : "hidden"}
               >
                 <motion.h3 variants={item} className="text-5xl mt-6" layout>
                   $67
@@ -96,29 +92,22 @@ export default function Home() {
             </motion.div>
             <motion.div className="flex place-items-center pb-14">
               <motion.button
-                className="bg-red-700 text-white font-semibold py-10 text-xl px-8 rounded-full  uppercase  "
+                className="bg-red-700 text-white font-semibold py-10 text-xl px-8 rounded-full  uppercase"
+                variants={button}
+                whileTap="whileTap"
+                animate={animate ? "animate" : "initial"}
+                initial="initial"
                 layout
-                initial={{
-                  scale: 0,
-                  opacity: 0,
-                }}
-                animate={{
-                  scale: 1,
-                  opacity: 1,
-                }}
-                whileTap={{
-                  scale: 0.95,
-                  transition: {
-                    duration: 0.1,
-                    ease: "easeInOut",
-                  },
-                }}
               >
                 ADD
               </motion.button>
             </motion.div>
           </div>
-          <motion.div variants={container} initial="hidden" animate="visible">
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate={animate ? "visible" : "hidden"}
+          >
             <motion.h5 layout variants={item} className="uppercase font-bold ">
               Select size
             </motion.h5>
@@ -171,8 +160,14 @@ export default function Home() {
           </motion.div>
           <div className="my-20" />
         </div>
-        <div className="lg:w-1/2 w-full overflow-hidden">
-          <div className="w-full flex  h-full relative">
+
+        <div className="lg:w-1/2 w-full">
+          <motion.div
+            variants={onClickImage}
+            animate={animate ? "animate" : "initial"}
+            initial="initial"
+            className="w-full flex  h-full relative"
+          >
             <div className="w-[40rem] h-[40rem] absolute bg-themeGreen rounded-full lg:bottom-16 lg:-right-28 opacity-50"></div>
             <img
               src={selectedImage.src}
@@ -180,43 +175,27 @@ export default function Home() {
               className="relative z-20 lg:hidden"
             />
             <AnimatePresence>
-
-            {selectedImage ? (
-              <motion.div
-                key={selectedImage.src}
-                layoutId="image"
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                  transition: {
-                    duration: 0.5,
-                    ease: "easeInOut",
-                  },
-                }}
-                  initial={{
-                  opacity: 0,
-                    x: 100,
-                    position: "absolute",
-                }}
-                  exit={{
-                    opacity: 0,
-                    x: -50,
-                    position: "absolute",
-                  }}
-                
-                className="w-full h-full relative lg:block hidden"
-              >
-                <Image
-                  src={selectedImage}
-                  alt="model1"
-                  layout="fill"
-                  objectFit="cover"
-                  objectPosition={"top"}
-                />
-              </motion.div>
-            ) : null}
+              {selectedImage ? (
+                <motion.div
+                  key={selectedImage.src}
+                  layoutId="image"
+                  className="w-full h-full  lg:block hidden"
+                  variants={image}
+                  initial="initial"
+                  animate={"animate"}
+                  exit="exit"
+                >
+                  <Image
+                    src={selectedImage}
+                    alt="model1"
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition={"top"}
+                  />
+                </motion.div>
+              ) : null}
             </AnimatePresence>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
