@@ -70,7 +70,7 @@ export default function Home() {
                 animate={animate ? "animate" : "initial"}
                 initial="initial"
                 className="font-bold text-6xl uppercase leading-[5rem]  
-                w-full"
+                w-full relative z-40"
               >
                 Tied Green
                 <br />

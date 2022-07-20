@@ -76,7 +76,7 @@ export const onClickImage = {
     },
   },
   initial: {
-    x: -400,
+    x: -300,
     position: "",
     hieght: "100%",
     width: "100%",
